@@ -36,7 +36,10 @@ app.layout = html.Div([
 ])
 
 
-# TO MODIFY: Add callback decorator
+@app.callback(
+    dash.Output('map', 'children'),
+    dash.Input('interval-component', 'n_intervals')
+)
 def update_graph_live(n):
     # Retrieve a list of flight dictionaries with 'latitude', 'longitude' and 'id' keys
     data = fetch_flight_data(
@@ -49,8 +52,10 @@ def update_graph_live(n):
     children = default_map_children + [
         dl.Marker(
             id=flight['id'],
-            position=[0, 0]
+            position=(flight['latitude'], flight['longitude']),
+            children=[dl.Popup(content=flight['id'])]
         ) for flight in data
+
     ]
 
     return children

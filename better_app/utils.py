@@ -3,6 +3,7 @@ Utils.
 """
 from typing import Dict, Optional, List
 from FlightRadar24 import FlightRadar24API
+import numpy as np
 
 
 def fetch_flight_data(
@@ -97,8 +98,14 @@ def bearing_from_positions(
     Returns:
         float: Bearing in degrees.
     """
-    raise NotImplementedError("TO MODIFY")
-
+    lat1, lon1, lat2, lon2 = map(
+        np.radians,
+        [previous_latitude, previous_longitude, latitude, longitude]
+    )
+    y = np.sin(lon2-lon1)*np.cos(lat2)
+    x = np.cos(lat1)*np.sin(lat2) - np.sin(lat1)*np.cos(lat2)*np.cos(lat2-lat1)
+    alpha = np.arctan2(y, x)
+    return (alpha*180/np.pi + 360) % 360
 
 def get_closest_round_angle(angle: float) -> int:
     """
@@ -114,7 +121,18 @@ def get_closest_round_angle(angle: float) -> int:
             165, 180, 195, 210, 225, 240, 255, 270,
             285, 300, 315, 330, 345.
     """
-    raise NotImplementedError("TO MODIFY")
+    if angle < 0:
+        angle += 360
+    q = angle // 15
+    r = angle % 15
+    if r > 7:
+        q += 1
+    if q == 24:
+        return 0
+    else:
+        return int(q*15)
+
+print(get_closest_round_angle(10))
 
 
 def get_custom_icon(round_angle: int) -> Dict:

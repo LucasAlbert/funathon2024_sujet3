@@ -40,7 +40,7 @@ def fetch_flight_data(
         {
             "latitude": flight.latitude,
             "longitude": flight.longitude,
-            "id": flight.id,
+            "id": flight.callsign,
             "origin_airport_iata": flight.origin_airport_iata,
             "destination_airport_iata": flight.destination_airport_iata,
             "ground_speed": flight.ground_speed,

@@ -34,7 +34,7 @@ def fetch_flight_data(
     flights = client.get_flights(
         aircraft_type=aircraft_type,
         airline=airline_icao,
-        bounds=bounds
+        bounds=bounds,
     )
     # TO MODIFY
     return [
@@ -42,6 +42,11 @@ def fetch_flight_data(
             "latitude": flight.latitude,
             "longitude": flight.longitude,
             "id": flight.id,
+            "destination_airport": flight.destination_airport_iata,
+            "origin_airport": flight.origin_airport_iata,
+            "type": flight.aircraft_code,
+            "ground_speed": flight.ground_speed
+
         } for flight in flights
     ]
 

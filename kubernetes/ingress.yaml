@@ -7,9 +7,9 @@ metadata:
 spec:
   tls:
     - hosts:
-      - <xxx>.lab.sspcloud.fr  # TO MODIFY
+      - lucasflightradar.lab.sspcloud.fr
   rules:
-  - host: <xxx>.lab.sspcloud.fr  # TO MODIFY
+  - host: lucasflightradar.lab.sspcloud.fr 
     http:
       paths:
       - path: /

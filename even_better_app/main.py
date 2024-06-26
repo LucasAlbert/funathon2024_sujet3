@@ -68,10 +68,13 @@ def update_graph_live(n, previous_data):
         dl.Marker(
             id=flight['id'],
             position=[flight['latitude'], flight['longitude']],
-            # TO MODIFY
             children=[
                 dl.Popup(html.Div([
-                    html.H3(flight['id'])
+                    html.H3(flight['id']),
+                    html.H4(f"Avion : {flight['type']}"),
+                    html.H4(f"Vitesse sol : {flight['ground_speed']}"),
+                    html.H4(f"Origine : {flight['origin_airport']}"),
+                    html.H4(f"Destination : {flight['destination_airport']}")
                 ]))
             ],
             icon=get_custom_icon(
